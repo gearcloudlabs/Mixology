@@ -1,0 +1,4 @@
+{
+    "channelName":"Control_example",
+    "topology": ["sender.out|receiver.in"]
+}

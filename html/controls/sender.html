@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+<head>
+    <title>Sender</title>
+    <meta charset="utf-8">
+    <meta name="viewport"
+	  content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+    <style>
+
+    #controls {
+         position: fixed;
+         left:0px;
+         bottom:0px;
+         height:30px;
+         z-index:102;
+         text-align:left;
+         background-color: grey;
+         vertical-align:middle;
+         font-family: Monospace;
+         visibility:hidden;
+    }
+
+    #inner {
+         position:relative;
+         top:12%;
+    }
+
+    body {
+        background-color:black;
+    }
+
+    </style>
+
+<body>
+
+<div id="controls">
+    <div id="inner">
+	Pick one>
+	<button id="normal">normal</button>
+	<button id="red">red</button>
+	<button id="green">green</button>
+	<button id="blue">blue</button>
+	<button id="mirrorh">mirror h</button>
+	<button id="mirrorv">mirror v</button>
+	<button id="fliph">flip h</button>
+	<button id="flipv">flip v</button>
+	Toggle>
+	<button id="pause">pause cam</button>
+    </div>
+</div>
+
+
+<!-- Needed for WebRTC communications -->
+<script src="/socket.io/socket.io.js"></script>
+<script src="../mixology.js"></script>
+
+<!-- Sender -->
+<script src="effects.js"></script>
+<script src="buttons.js"></script>
+<script src="sender.js"></script>
+
+</body>
+</html>

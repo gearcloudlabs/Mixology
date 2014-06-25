@@ -1,0 +1,88 @@
+<html>
+<head>
+</head>
+<body>
+<h1>mNode: B - Taco Parade</h1>
+
+<video id="v0"  autoplay></video>
+<video id="v1"  autoplay></video>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="../mixology.js"></script>
+<script>
+
+var CONFIG = {
+     'iceServers': [ {'url': 'stun:stun.l.google.com:19302' } ]
+ };
+
+var SDP_CONSTRAINTS = {'mandatory': {
+	'OfferToReceiveAudio':true,
+	'OfferToReceiveVideo':true }};
+
+var VIDEO_MAX = 1;
+
+var host;
+var videoIndex = 0; // rotate through video tags
+
+signaller = document.URL.split('/').slice(0,3).join('/');
+var m = new Mixology(signaller);
+
+if (typeof webkitURL != 'undefined') {
+ navigator.URL = webkitURL.getObjectURL;
+}
+
+if (typeof URL != 'undefined') {
+ navigator.URL = URL.createObjectURL;
+}
+
+
+m.onRegistered = function(d) {
+    console.log("onRegistered:"+ JSON.stringify(d,null,2));
+
+    for (var pid in m.inputs) {
+	// receiveRtcStream starts dance immediately. To
+	// throttle we'd need to add a handshake before this
+	m.receiveRtcStream(pid, CONFIG, onAddStream);
+    }
+};
+
+m.onPeerRegistered = function(d) {
+ console.log("onPeerRegistered:"+JSON.stringify(d,null,2));
+
+    if (d.direction == "in") {
+	// receiveRtcStream starts dance immediately. To
+	// throttle we'd need to add a handshake before this
+	m.receiveRtcStream(d.peer, CONFIG, onAddStream);
+    }
+};
+
+m.onPeerUnRegistered = function(d) {
+    console.log("onPeerUnRegistered:"+JSON.stringify(d,null,2));
+    m.closeRtcStream(d.peer);
+};
+
+m.onMessage = function(d) {
+    console.log("onMessage:"+JSON.stringify(d,null,2));
+    if (d.data.rtcEvent) {
+	m.processRtcEvent(d.data, SDP_CONSTRAINTS);
+    }
+};
+
+function onAddStream(stream,pid) {
+    console.log("onAddStream");
+
+    // simple case- just overwrite existing stream [todo-shutdown]
+    TEST = stream;
+
+    document.querySelector('#v'+videoIndex).src = navigator.URL(stream);
+    videoIndex = (videoIndex + 1) % VIDEO_MAX;
+
+}
+
+m.register(['y'],[]);
+
+</script>
+
+</body>
+</html>
+
