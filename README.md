@@ -20,6 +20,6 @@ This repository currently has 3 example programs.
 
 A more sophisticated example app is the [Party Bus](http://mixology.gearcloudlabs.com/partybus/mixer3d.html) (not currently available in an open source example).  For more information on Party Bus, see the Gearcloud Labs [website] (http://gearcloudlabs.com/exploring-mixology-by-riding-the-party-bus/), or the Mozilla Hacks [article](https://hacks.mozilla.org/2014/04/inside-the-party-bus-building-a-web-app-with-multiple-live-video-streams-interactive-graphics/).
 
-More info
----------
+For more info
+-------------
 Contributions are welcome.  For more information, contact info@gearcloudlabs.com. 
