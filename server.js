@@ -1,13 +1,9 @@
 // Mixology Prototype
 // WebRTC Signaling server 1.1
 //
-// Copyright (C) 2014 Gearcloud Labs. All Rights Reserved
+// Copyright (C) 2014 Gearcloud Labs. 
 //
-// SDK MODEL
-//
-// TODO:
-// - mNodeName should be case insensitive?
-// - Output to multiple named slots? Sorta works.. find the bug
+// See LICENSE file for licensing information
 
 var express = require('express');
 var app = express();
@@ -19,21 +15,18 @@ var http = require('http');
 //
 
 var _PORT       = 9090;
-var _LOG_LEVEL  = 1;
 var _DEBUG_MODE = true;
 var _WEBDIR     = "/html";
-// var _WEBDIR     = "/html1";
-var _VERSION    = "0.1";
+var _VERSION    = "0.15";
 
-var _channels = new Object();  // manifest format in mixology.js;  [channelName]
+var _channels = new Object();  // See manifest format in mixology.js;  [channelName]
 var _registrations = new Object(); // [channelName][fqmNodeName] = {"FQN.port":true, .. }
 var _mNodeIndex = new Object(); // mNodes index for partioning
 
 
-
 function main() {
 
-    io.set('log level', _LOG_LEVEL);
+    // Usage: node server.js <port#>
 
     if (process.argv[2]) {
 	_PORT = process.argv[2];
@@ -44,14 +37,6 @@ function main() {
     // Fire up a web server to serve static files
     // note - socket.io will intercep and serve files under URI: http://<host>/socket.io/*
 
-    //    app.use(compression({filter: function (req,res) {
-    //		    return /json|text|javascript|dart|image\/svg\+xml|application\/x-font-ttf|application\/vnd\.ms-opentype|application\/vnd\.ms-fontobject|application\/octet-stream/.test(res.getHeader('Content-Type'));
-
-
-		    //		}}));
-		
-
-//    app.use(express.static(__dirname+_WEBDIR,{maxAge:86400000}));  // send cache-header
     app.use(express.static(__dirname+_WEBDIR));
 
     log("Server v"+_VERSION+" started on port "+_PORT+" Root Directory: "+_WEBDIR);
@@ -72,6 +57,9 @@ function main() {
 	    var topology; // [{src:A.x, sink:B.y},..]   A.x sends to B.y
 
 
+	    // =======
+	    // Utility functions
+
 	    // Broadcast message to all registered peers
 	    //
 
@@ -89,7 +77,6 @@ function main() {
 		var ps = new Array();
 		for (var i in slots) {
 		    var slot = slots[i];
-		    //		    log("getting peers for: "+slot);
 		    
 		    var p = peersForSlot(slot);
 		    for (var j in p) {
@@ -105,7 +92,7 @@ function main() {
 			    var payload = {peer:slot, me:apeer, direction: dir=="in"?"out":"in"};
 
 			    socket.broadcast.to(sid).emit(event,payload);
-			    //			    io.sockets.socket[sid].emit(event, payload);
+
 			    log(" "+sid+":notifyRegisteredPeers: "+slot+" -> " + apeer + " payload: "+JSON.stringify(payload,null,2));
 			    
 			    ps.push(p[j]);
@@ -141,7 +128,6 @@ function main() {
 		// find peer from topology
 		// look up fully qualified name
 
-		//		var direction;
 		var parsed;
 		var slotName;
 		var gPeer;
@@ -168,10 +154,7 @@ function main() {
 
 		    if (gPeer) {
 			
-
-			//log("gPeer for:" + fqSlotName + " is: " + gPeer + " ("+direction+")");
-
-			// now find all registered peers
+			// find all registered peers
 			var peerName = gPeer.split(".")[0];
 			var peerPort = gPeer.split(".")[1];
 
@@ -195,6 +178,10 @@ function main() {
 		return peers;
 	    }
 
+	    // End of utility functions
+	    // =======
+
+
 	    log("CONNECTED: "+socket.id);
 
 	    // EVENTS
@@ -215,16 +202,12 @@ function main() {
 			if (!_registrations[channelName]) _registrations[channelName] = new Object();
 			_registrations[channelName][fqmNodeName] = new Array(); // Object?
 
-			//var slots = new Array();
-			//for (var i in inputs) slots.push("in."+inputs[i]);
-			//for (var i in outputs) slots.push("out."+outputs[i]);
 			var slots = inputs.concat(outputs);
 
 			log(" Registering ["+channelName+"]["+fqmNodeName+"]: "+slots.join(","));
 			for (var i in slots) {
 			    var fqslot = fqmNodeName + "." + slots[i];
 
-			    //_registrations[channelName][fqmNodeName][fqslot] = true;
 			    _registrations[channelName][fqmNodeName].push(fqslot);
 			}
 		    }
@@ -294,15 +277,10 @@ function main() {
 				    log(" non-partitioned channel:"+channelName);				    
 				}
 				
-				// Register slots
 				registerSlots();
-
-				//// CHECK RACES
 
 				// tell registered peers (by topology) that I'm here
 				
-				// broadcastToPeers("onPeerRegistered",{fqmNodeName:fqmNodeName});
-
 				notifyRegisteredPeers('onPeerRegistered');
 
 				// fire callback
@@ -313,7 +291,6 @@ function main() {
 					    registeredPeers:allRegisteredPeers()});
 
 				// send current Peers back when you register?
-				
 				
 				    
 			    });
@@ -334,8 +311,6 @@ function main() {
 
 		    var peerSid;
 
-//		    log('SENDTOPEER received:'+JSON.stringify(data,null,2));
-
 		    if (data.to in _registrations[channelName]) {
 
 			peerSid = data.to.split(".")[1];
@@ -345,61 +320,13 @@ function main() {
 			}
 
 			socket.broadcast.to(peerSid).emit('onMessage',data);
-			//			io.sockets.socket(peerSid).emit('onMessage', data);
+
 			log(" sendToPeer from: "+fqmNodeName+" to: "+data.to+" payload:"+JSON.stringify(data.data.rtcEvent));
 
 		    } else {
 			log(" sendToPeer - peer not registered: "+data.to + " sender: "+data.from);
 		    }
 
-
-		    /*
-		    ////
-
-		    // go find peer in table, get socket id
-		    // send!
-		    var fromSlot = data["fromSlot"]; 
-		    var msgData  = data["data"];
-		    var slotName = mNodeName + "." + fromSlot;  // X.y
-		    var direction;
-		    var peer;
-		    var peerSid;
-		    var fqSlotName;
-
-
-		    // Sigh. look up my direction -- REFACTOR
-
-		    for (var i in topology) {
-			var clause = topology[i];
-
-			if (clause['src'] == slotName) {
-			    direction = "out";
-			    break;
-			}
-
-			if (clause['sink'] == slotName) {
-			    direction = "in";
-			    break;
-			}
-		    }
-
-		    if (direction) {
-			fqSlotName = mNodeName + "." + peerID + "." + direction + "." + fromSlot;
-			peer = peersForSlot(fqSlotName);
-
-			// get peer's socketID (same as their ID)
-			peerSid = peer.split(".")[1];
-
-		    
-			log("sendToPeer from: "+fqSlotName+" to: "+peer);
-			
-			// now Send!
-			io.sockets.socket(peerSid).emit('onMessage', msgData);
-			    
-		    } else {
-			log("SendtoPeer. Bad slot provided: "+slotName);
-		    }
-		    */
 
 		});
 
@@ -432,7 +359,6 @@ function main() {
 
 		    if (mNodeName) {
 			log("DISCONNECT:["+channelName+"]:"+fqmNodeName+" and unregistered");
-			//TBD: broadcast
 
 			notifyRegisteredPeers('onPeerUnRegistered');
 

@@ -1,28 +1,13 @@
 // Mixology Prototype SDK
-// Copyright (C) 2014 Gearcloud Labs, LLC. All Rights Reserved
+// Copyright (C) 2014 Gearcloud Labs, LLC
+//
+// See LICENSE file for licensing information
 //
 // Dependencies
 //    socket.io.js
 //
-// todo- Use require.js.
-//
-// Conventions:
-// 
-// -Name of mNode is name of html file, e.g., <name>.html
-// -Portname names an input or output port. Must be unique within the mNode
-//
-// -Channel descriptor (manifest.json) stored in containing directory for all mNodes for channel
-//  Note: slotNames must be unique within each mNodeName
-//
-//  {
-//   "channelName":"Taco Giblet Parade",
-//   "toplogy": ["<mNodeName>.<slotName> | <mNodeName>.<slotName>", .. ]
-//  }
-//
-// TODO: fixup var names
 
-var CLOUD_SIGNALLER_HOST = "http://8.34.217.23:9090"; // Use this signaller if files hosted on Google App Engine
-var CLOUD_HOST = "caster-gearcloud.appspot.com";
+// Mixology class
 
 (function () {
 
@@ -35,12 +20,6 @@ var CLOUD_HOST = "caster-gearcloud.appspot.com";
 	this.fqmNodeName;
 	this.inputs  = new Object();
 	this.outputs = new Object();
-
-	// override signaller if nodeURL served from CLOUD_HOST
-
-	if (this.mNodeURL.split("/")[2].split(":")[0] == CLOUD_HOST) {
-	    this.signallerHost = CLOUD_SIGNALLER_HOST;
-	}
 
 	var self = this; // so callbacks can see instance properties
 
@@ -221,6 +200,7 @@ var CLOUD_HOST = "caster-gearcloud.appspot.com";
 	// NEW handle Chrome/webkit vs. Mozilla/moz
 	// see http://www.webrtc.org/interop, and adapter.js
 	// https://code.google.com/p/webrtc/source/browse/trunk/samples/js/base/adapter.js
+
 	if (navigator.webkitGetUserMedia)
 	    peer.rtcPc = new webkitRTCPeerConnection(config, options);
 	else if (navigator.mozGetUserMedia)
@@ -262,8 +242,6 @@ var CLOUD_HOST = "caster-gearcloud.appspot.com";
 	    }
 	}
 
-
-	// NEW try
 	peer.rtcPc.createOffer(function(desc){
 	    // gotDescription handler
 	    var payload = {slot:peerId, fromSlot:peer.me, rtcEvent:"newSDP", desc:desc};
@@ -271,14 +249,6 @@ var CLOUD_HOST = "caster-gearcloud.appspot.com";
 		peer.rtcPc.setLocalDescription(desc);
 	    },error);    
 
-	/* ORIG
-	peer.rtcPc.createOffer(function(desc){
-	    // gotDescription handler
-	    var payload = {slot:peerId, fromSlot:peer.me, rtcEvent:"newSDP", desc:desc};
-	        self.sendToPeer(peerId, payload);
-		peer.rtcPc.setLocalDescription(desc);
-	    },null,null);    
-	*/
     }
 
 
@@ -295,7 +265,6 @@ var CLOUD_HOST = "caster-gearcloud.appspot.com";
 
 	    if (data.rtcEvent == "newICE") {
 
-		// NEW handle Chrome/webkit vs. Mozilla/moz
 		if (navigator.webkitGetUserMedia)
 		    var rtcIceCandidate = new RTCIceCandidate(data.candidate);
 		else if (navigator.mozGetUserMedia)
@@ -305,15 +274,12 @@ var CLOUD_HOST = "caster-gearcloud.appspot.com";
 
 		// same logic if we are caller or callee
 		peer.rtcPc.addIceCandidate(rtcIceCandidate);
-		// ORIG: peer.rtcPc.addIceCandidate(new RTCIceCandidate(data.candidate));
+
 	    }
 
 	    if (data.rtcEvent == "newSDP") {
 		var answerSDP = data.desc;
 
-		// add hook to tweak SDP here?
-
-		// NEW handle Chrome/webkit vs. Mozilla/moz
 		if (navigator.webkitGetUserMedia)
 		    var remoteSessionDescription = new RTCSessionDescription(answerSDP);
 		else if (navigator.mozGetUserMedia)
@@ -326,7 +292,7 @@ var CLOUD_HOST = "caster-gearcloud.appspot.com";
 		if (peer.direction == "in") {
 		    peer.rtcPc.createAnswer(function(desc){
 
-			    //tweak here
+			    // optionally tweak Sdp
 			    if (tweakSdp) {
 				desc = tweakSdp(desc);
 			    }
@@ -366,9 +332,6 @@ var CLOUD_HOST = "caster-gearcloud.appspot.com";
 	    }
 	}
 
-	// NEW TRY
-	// see example in adapter.js
-	// https://code.google.com/p/webrtc/source/browse/trunk/samples/js/base/adapter.js
 	if (navigator.webkitGetUserMedia)
 	    peer.rtcPc = new webkitRTCPeerConnection(config, options);
 	else if (navigator.mozGetUserMedia)
@@ -471,49 +434,3 @@ var CLOUD_HOST = "caster-gearcloud.appspot.com";
     window.Mixology = Mixology;
 
 })();
-
-/*
-// TEST - NOT USED
-
-(function () {
-    var Topology = function Toplogy (t) {
-	this.topology = t;
-    }
-
-    Topology.prototype.inputs = function(x) {
-	// find X in topology, then get its inputs
-
-	var t = this.topology.split("|");
-	var idx = t.indexOf(x);
-	var inputs;
-
-	if (idx == -1) {
-	    console.log(x + " not found in topology:" + this.topology);
-	}
-
-	inputs = t[idx-1];  // if bad index, you get undefined so it's ok
-
-	return inputs;
-    }
-
-    Topology.prototype.outputs = function(x) {
-
-	var t = this.topology.split("|");
-	var idx = t.indexOf(x);
-	var outputs;
-
-	if (idx == -1) {
-	    console.log(x + " not found in topology:" + this.topology);
-	} 
-	
-	outputs = t[idx+1];
-
-	return outputs;
-    }
-
-    //    window.Mixology.Topology = Topology;
-    // or?
-    window.Topology = Topology;
-
-})();
-*/
