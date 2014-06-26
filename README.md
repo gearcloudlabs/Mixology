@@ -6,9 +6,16 @@ The Mixology digital media platform provides a simple way to combine multiple li
 Getting started
 ---------------
 1. Download the code
-2. npm install express and socket.io
-3. Set up the topology file, manifest.json
-4. Run it!
+2. Install node, then the following packages
+   - npm install express
+   - npm install socket.io
+3. Install the Chrome Extension
+   - Open the chrome://extensions page
+   - Enable developer mode
+   - Load the unpacked extension "Extension" in the Mixology distribution
+4. Start the Mixology server
+   node server.js
+5. Open http://localhost:9090/ to see the list of available demos
 
 Example code
 ------------
@@ -16,9 +23,15 @@ This repository currently has 3 example programs.
 
 1. Hello - A simple hello world program with 2 nodes, and a one-way video stream connection
 2. Controls - 2 nodes, with one-way video and data channel
-3. Extension - 3 nodes, with a middle node relay ...
+3. Mix - 3 nodes, mixing two video sources with effects to a viewer
+
 
 A more sophisticated example app is the [Party Bus](http://mixology.gearcloudlabs.com/partybus/mixer3d.html) (not currently available in an open source example).  For more information on Party Bus, see [website] (http://gearcloudlabs.com/exploring-mixology-by-riding-the-party-bus/) of Gearcloud Labs, or [article](https://hacks.mozilla.org/2014/04/inside-the-party-bus-building-a-web-app-with-multiple-live-video-streams-interactive-graphics/) in Mozilla Hacks.
+
+Mixology Topologies
+-------------------
+
+For more information on to create your own mixes, please see the main project page <XYZXYZ>. 
 
 For more info
 -------------
