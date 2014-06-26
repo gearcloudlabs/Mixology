@@ -1,11 +1,15 @@
 <html>
 <head>
+<style>
+body {
+ font-family:Sans-Serif;
+}
+</style>
 </head>
 <body>
-<h1>mNode: B - Taco Parade</h1>
+<h1>Hello World - Receiver</h1>
 
 <video id="v0"  autoplay></video>
-<video id="v1"  autoplay></video>
 
 <script src="/socket.io/socket.io.js"></script>
 <script src="../mixology.js"></script>
@@ -71,11 +75,8 @@ m.onMessage = function(d) {
 function onAddStream(stream,pid) {
     console.log("onAddStream");
 
-    // simple case- just overwrite existing stream [todo-shutdown]
-    TEST = stream;
 
-    document.querySelector('#v'+videoIndex).src = navigator.URL(stream);
-    videoIndex = (videoIndex + 1) % VIDEO_MAX;
+    document.querySelector('#v0').src = navigator.URL(stream);
 
 }
 

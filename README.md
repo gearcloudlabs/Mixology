@@ -9,10 +9,10 @@ Getting started
 2. Install node, then the following packages
    - npm install express
    - npm install socket.io
-3. Install the Chrome Extension
+3. Install the Mixmit Chrome Extension 
    - Open the chrome://extensions page
    - Enable developer mode
-   - Load the unpacked extension "Extension" in the Mixology distribution
+   - Load the unpacked extension "Mixmit" in the Mixology distribution
 4. Start the Mixology server
    node server.js
 5. Open http://localhost:9090/ to see the list of available demos
