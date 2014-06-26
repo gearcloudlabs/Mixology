@@ -36,6 +36,6 @@ For more info
 -------------
 For information on creating your own mixes, please see the [Mixology project page](http://gearcloudlabs.com/mixology-sdk-documentation).  If that's not enough, feel free to contact us at info@gearcloudlabs.com. 
 
-We welcome your feedback, questions, and contributions!
+All feedback, questions, and contributions welcome!
 
 
