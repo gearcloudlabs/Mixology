@@ -7,8 +7,8 @@ Getting started
 ---------------
 1. Download the code
 2. Install node, then the following packages
-   - npm install express
-   - npm install socket.io
+   - npm install express (version 4.4.4 or later)
+   - npm install socket.io   (version 1.0.6 or later)
 3. Install the Mixmit Chrome Extension 
    - Open the chrome://extensions page
    - Enable developer mode
