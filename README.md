@@ -5,7 +5,7 @@ The Mixology digital media platform provides a simple way to combine multiple li
 
 Getting started
 ---------------
-1. From github, clone or download Mixology to your machine
+1. From github, clone or download the Mixology repository to your machine
 2. Install [node.js](http://nodejs.org), and then load the following packages into your Mixology directory
    - npm install express (version 4.4.4 or later)
    - npm install socket.io (version 1.0.6 or later)
