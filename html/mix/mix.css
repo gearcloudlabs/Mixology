@@ -1,0 +1,41 @@
+@-webkit-keyframes spinner {
+    from { -webkit-transform: rotateY(0deg);    }
+    to   { -webkit-transform: rotateY(-360deg); }
+  }
+
+#stage {
+    width:100%;
+    text-align:center;
+
+    -webkit-perspective: 800px;
+    -moz-perspective: 800px;
+    perspective: 800px;
+  }
+
+.spinner {
+    -webkit-animation-name: spinner;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-duration: 6s;
+
+    animation-name: spinner;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-duration: 6s;
+
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -ms-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+
+    display: inline-block;
+    width:25%;
+  }
+
+.static {
+  display:block;
+  margin: 0 auto;
+  width:25%;
+}
+  
+

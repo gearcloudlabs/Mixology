@@ -1,0 +1,4 @@
+{
+	"channelName":"Mix Example",
+	"topology": ["camera.out|mix.in","mix.stream|viewer.in"]
+}

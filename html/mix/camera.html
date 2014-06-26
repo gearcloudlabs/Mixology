@@ -1,0 +1,101 @@
+<html>
+<head>
+</head>
+<body>
+<h1>Mixology - Mix demo. Camera input</h1>
+
+<p>Open two instances of this page, ideally on different
+devices running Chrome</p>
+
+<div>Camera preview:</div>
+<video src="" autoplay></video>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="../mixology.js"></script>
+<script>
+
+var CONFIG = {
+     'iceServers': [ {'url': 'stun:stun.l.google.com:19302' } ]
+ };
+
+// only used when receiving an RTC stream
+var SDP_CONSTRAINTS = {'mandatory': {
+	'OfferToReceiveAudio':true,
+	'OfferToReceiveVideo':true }};
+
+
+var host;   // signalling host
+var m;     
+var stream; // my camera stream
+
+navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+
+if (typeof webkitURL != 'undefined') {
+ navigator.URL = webkitURL.getObjectURL;
+}
+
+if (typeof URL != 'undefined') {
+ navigator.URL = URL.createObjectURL;
+}
+
+
+signaller = document.URL.split('/').slice(0,3).join('/');
+m = new Mixology(signaller);
+
+m.onRegistered = function(d) {
+var VIDEO_CONSTRAINTS = {
+    mandatory: {
+      maxHeight:180, 
+      minFrameRate:30
+    },
+    optional:[]
+};
+
+    console.log("onRegistered:"+ JSON.stringify(d,null,2));
+
+    navigator.getUserMedia({audio: false, video: true}, function(strm) {
+	    document.querySelector('video').src = navigator.URL(strm);
+
+	    stream = strm; // save it because other peers will use stream too
+	 
+	    for (var pid in m.outputs) {
+		// sendRtcStream starts dance immediately. To
+		// throttle we'd need to add a handshake before this
+		m.sendRtcStream(pid, stream, CONFIG);
+	    }
+	}, function (e){
+           console.log("error:"+e)});	 
+};
+
+m.onPeerRegistered = function(d) {
+
+    console.log("onPeerRegistered:"+JSON.stringify(d,null,2));
+
+    if (d.direction == "out") {
+	if (stream) {
+	    // sendRtcStream starts dance immediately. To
+	    // throttle we'd need to add a handshake before this
+	    m.sendRtcStream(d.peer, stream, CONFIG);
+	}
+    }
+};
+
+m.onPeerUnRegistered = function(d) {
+    //    removePeer(d.peer);
+    // tbd rtcCleanup
+    m.closeRtcStream(d.peer);
+    console.log("onPeerUnRegistered:"+JSON.stringify(d,null,2));
+};
+
+m.onMessage = function(d) {
+ console.log("onMessage:"+JSON.stringify(d,null,2));
+ if (d.data.rtcEvent) m.processRtcEvent(d.data, SDP_CONSTRAINTS);
+};
+
+m.register([],['out']);
+
+</script>
+
+</body>
+</html>
+
