@@ -23,7 +23,7 @@ This repository currently has three example programs:
 
 1. Hello - A simple hello world program with two nodes, and a one-way video stream connection
 2. Controls - Two nodes, with one-way video and data channel
-3. Mix - Three nodes, mixing two video sources with effects sent to a viewer
+3. Mix3 - Three nodes, mixing two video sources with effects sent to a viewer
 
 A more sophisticated example app is the [Party Bus](http://mixology.gearcloudlabs.com/partybus/mixer3d.html) (not currently available in an open source example).  For more info on Party Bus, see the Gearcloud Labs [website](http://gearcloudlabs.com/exploring-mixology-by-riding-the-party-bus), or the Mozilla Hacks [article](https://hacks.mozilla.org/2014/04/inside-the-party-bus-building-a-web-app-with-multiple-live-video-streams-interactive-graphics).
 
