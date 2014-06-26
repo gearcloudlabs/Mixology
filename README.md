@@ -31,7 +31,7 @@ A more sophisticated example app is the [Party Bus](http://mixology.gearcloudlab
 Mixology Topologies
 -------------------
 
-For more information on to create your own mixes, please see the main project page <XYZXYZ>. 
+For more information on to create your own mixes, please see the main project page at LIRPA
 
 For more info
 -------------
