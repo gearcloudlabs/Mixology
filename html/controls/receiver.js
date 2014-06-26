@@ -196,34 +196,6 @@ function streamFeed() {
 
 
 
-
-// update controls and stats
-function update() {
-    // pause
-    if ( keyboard.pressed("p") ) {    
-	for (var i = 0; i < NUM_SEATS; i++) {
-	    if (!vsArray[i])
-		continue;
-	    vsArray[i].getVideo().pause();
-	}
-    }
-
-    // resume
-    if ( keyboard.pressed("r") ) {
-	for (var i = 0; i < NUM_SEATS; i++) {
-	    if (!vsArray[i])
-		continue;
-	    vsArray[i].getVideo().play();
-	}
-    }
-
-    controls.update();
-    stats.update();
-}
-
-
-
-
 //
 // BROWSER & WEBGL DETECTION
 //

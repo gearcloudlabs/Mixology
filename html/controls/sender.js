@@ -190,26 +190,7 @@ function streamFeed() {
     // add effects
     imageData = addEffects(imageData, feed.width, feed.height);
     displayContext.putImageData(imageData, 0, 0);
-
-    update();
 }
-
-
-// pause and resume video
-function update() {
-    // pause
-    if ( keyboard.pressed("p") )
-	video.pause();
-
-    // resume
-    if ( keyboard.pressed("r") )
-	video.play();
-
-    // controls.update();
-    // stats.update();
-}
-
-
 
 
 //
