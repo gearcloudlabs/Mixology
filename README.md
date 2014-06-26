@@ -14,7 +14,7 @@ Getting started
    - Enable developer mode
    - Load the unpacked extension "Mixmit" in the Mixology distribution
 4. Start the Mixology server
-   node server.js
+   - node server.js
 5. Open http://localhost:9090/ to see the list of available demos
 
 Example code
