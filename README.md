@@ -5,10 +5,10 @@ The Mixology digital media platform provides a simple way to combine multiple li
 
 Getting started
 ---------------
-1. Download the code
-2. Install node, then the following packages
+1. From github, clone or download Mixology to your machine
+2. Install [node.js](http://nodejs.org), and then load the following packages into your Mixology directory
    - npm install express (version 4.4.4 or later)
-   - npm install socket.io   (version 1.0.6 or later)
+   - npm install socket.io (version 1.0.6 or later)
 3. Install the Mixmit Chrome Extension 
    - Open the chrome://extensions page
    - Enable developer mode
@@ -19,25 +19,23 @@ Getting started
 
 Example code
 ------------
-This repository currently has 3 example programs.
+This repository currently has 3 example programs:
 
-1. Hello - A simple hello world program with 2 nodes, and a one-way video stream connection
-2. Controls - 2 nodes, with one-way video and data channel
-3. Mix - 3 nodes, mixing two video sources with effects to a viewer
+1. Hello - A simple hello world program with two nodes, and a one-way video stream connection
+2. Controls - Two nodes, with one-way video and data channel
+3. Mix - Three nodes, mixing two video sources with effects sent to a viewer
 
-
-A more sophisticated example app is the [Party Bus](http://mixology.gearcloudlabs.com/partybus/mixer3d.html) (not currently available in an open source example).  For more information on Party Bus, see [website] (http://gearcloudlabs.com/exploring-mixology-by-riding-the-party-bus/) of Gearcloud Labs, or [article](https://hacks.mozilla.org/2014/04/inside-the-party-bus-building-a-web-app-with-multiple-live-video-streams-interactive-graphics/) in Mozilla Hacks.
-
-Mixology Topologies
--------------------
-
-For more information on to create your own mixes, please see the main project page at LIRPA
+A more sophisticated example app is the [Party Bus](http://mixology.gearcloudlabs.com/partybus/mixer3d.html) (not currently available in an open source example).  For more info on Party Bus, see the Gearcloud Labs [website](http://gearcloudlabs.com/exploring-mixology-by-riding-the-party-bus), or the Mozilla Hacks [article](https://hacks.mozilla.org/2014/04/inside-the-party-bus-building-a-web-app-with-multiple-live-video-streams-interactive-graphics).
 
 For more info
 -------------
-Contributions are welcome.  For more information, contact info@gearcloudlabs.com. 
+For information on creating your own mixes, please see the [Mixology project page](http://gearcloudlabs.com/mixology-sdk-documentation).
+
+If that's not enough, feel free to contact us at info@gearcloudlabs.com. 
+
+We welcome your feedback, questions, and contributions!
 
 License
--------------
-Mixology is an open source library licensed under terms of the MIT License. Please see the 
-LICENSE.txt file for more information
+-------
+Mixology is an open source library licensed under terms of the MIT License.  Please see the 
+LICENSE.txt file for more information.
