@@ -18,7 +18,7 @@ This repository currently has 3 example programs.
 2. Controls - 2 nodes, with one-way video and data channel
 3. Extension - 3 nodes, with a middle node relay ...
 
-A more sophisticated example app is the [Party Bus](http://mixology.gearcloudlabs.com/partybus/mixer3d.html) (not currently available in an open source example).  For more information on Party Bus, see the Gearcloud Labs [website] (http://gearcloudlabs.com/exploring-mixology-by-riding-the-party-bus/), or the Mozilla Hacks [article](https://hacks.mozilla.org/2014/04/inside-the-party-bus-building-a-web-app-with-multiple-live-video-streams-interactive-graphics/).
+A more sophisticated example app is the [Party Bus](http://mixology.gearcloudlabs.com/partybus/mixer3d.html) (not currently available in an open source example).  For more information on Party Bus, see [website] (http://gearcloudlabs.com/exploring-mixology-by-riding-the-party-bus/) of Gearcloud Labs, or [article](https://hacks.mozilla.org/2014/04/inside-the-party-bus-building-a-web-app-with-multiple-live-video-streams-interactive-graphics/) in Mozilla Hacks.
 
 For more info
 -------------
