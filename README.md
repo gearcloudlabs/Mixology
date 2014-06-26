@@ -19,7 +19,7 @@ Getting started
 
 Example code
 ------------
-This repository currently has 3 example programs:
+This repository currently has three example programs:
 
 1. Hello - A simple hello world program with two nodes, and a one-way video stream connection
 2. Controls - Two nodes, with one-way video and data channel
@@ -29,9 +29,7 @@ A more sophisticated example app is the [Party Bus](http://mixology.gearcloudlab
 
 For more info
 -------------
-For information on creating your own mixes, please see the [Mixology project page](http://gearcloudlabs.com/mixology-sdk-documentation).
-
-If that's not enough, feel free to contact us at info@gearcloudlabs.com. 
+For information on creating your own mixes, please see the [Mixology project page](http://gearcloudlabs.com/mixology-sdk-documentation).  If that's not enough, feel free to contact us at info@gearcloudlabs.com. 
 
 We welcome your feedback, questions, and contributions!
 
