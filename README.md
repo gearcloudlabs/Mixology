@@ -36,3 +36,8 @@ For more information on to create your own mixes, please see the main project pa
 For more info
 -------------
 Contributions are welcome.  For more information, contact info@gearcloudlabs.com. 
+
+License
+-------------
+Mixology is an open source library licensed under terms of the MIT License. Please see the 
+LICENSE.txt file for more information
