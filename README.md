@@ -1,7 +1,7 @@
 Mixology
 ========
 
-The Mixology digital media platform provides a simple way to combine multiple live video streams with interactive graphics.  It's built on top of WebRTC, and is a good choice for web apps that run in the Chrome and/or Firefox browsers.  Mixology was first developed by [Gearcloud Labs](www.gearcloudlabs.com) in 2014.
+The Mixology digital media platform provides a simple way to combine multiple live video streams with interactive graphics.  It's built on top of WebRTC, and is a good choice for web apps that run in the Chrome and/or Firefox browsers.  Mixology was first developed by [Gearcloud Labs](www.gearcloudlabs.com).
 
 Getting started
 ---------------
